@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
+import { AuthProvider } from '@/contexts/auth-context';
 
 export const metadata: Metadata = {
   title: 'PostDost AI',
@@ -27,10 +28,12 @@ export default function RootLayout({
         />
       </head>
       <body className="font-body antialiased">
-        <div className="relative min-h-screen w-full">
-          {children}
-        </div>
-        <Toaster />
+        <AuthProvider>
+          <div className="relative min-h-screen w-full" suppressHydrationWarning>
+            {children}
+          </div>
+          <Toaster />
+        </AuthProvider>
       </body>
     </html>
   );

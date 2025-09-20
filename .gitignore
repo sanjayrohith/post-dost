@@ -55,3 +55,6 @@ pids
 
 # genkit
 .genkit/
+
+# User data
+data/
