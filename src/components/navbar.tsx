@@ -16,6 +16,9 @@ import {
 export function Navbar() {
   const { user, logout, loading, isClient } = useAuth();
 
+  // Debug logging
+  console.log('Navbar render:', { user: user ? { id: user.id, name: user.name, email: user.email } : null, loading, isClient });
+
   const handleLogout = () => {
     logout();
   };
@@ -35,33 +38,6 @@ export function Navbar() {
         
         {!isClient || loading ? (
           <div className="w-20 h-10 bg-zinc-800 animate-pulse rounded-lg" />
-        ) : user ? (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="default"
-                className="rounded-lg bg-primary hover:bg-primary/90"
-              >
-                <User className="mr-2 h-4 w-4" />
-                {user.name}
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
-              <DropdownMenuLabel>
-                <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium leading-none">{user.name}</p>
-                  <p className="text-xs leading-none text-muted-foreground">
-                    {user.email}
-                  </p>
-                </div>
-              </DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
-                <LogOut className="mr-2 h-4 w-4" />
-                <span>Log out</span>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
         ) : (
           <>
             {/* absolutely centered Home/Post (separate from left brand and right auth) */}
@@ -91,26 +67,57 @@ export function Navbar() {
 
             {/* auth actions on the right */}
             <div className="ml-auto flex gap-2">
-              <Button
-                asChild
-                variant="outline"
-                className="rounded-lg border-primary/50 text-primary hover:bg-primary/10"
-              >
-                <Link href="/signup">
-                  <User className="mr-2 h-4 w-4" />
-                  Sign Up
-                </Link>
-              </Button>
-              <Button
-                asChild
-                variant="default"
-                className="rounded-lg bg-primary hover:bg-primary/90"
-              >
-                <Link href="/login">
-                  <User className="mr-2 h-4 w-4" />
-                  Login
-                </Link>
-              </Button>
+              {user ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="default"
+                      className="rounded-lg bg-primary hover:bg-primary/90"
+                    >
+                      <User className="mr-2 h-4 w-4" />
+                      {user.name}
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56">
+                    <DropdownMenuLabel>
+                      <div className="flex flex-col space-y-1">
+                        <p className="text-sm font-medium leading-none">{user.name}</p>
+                        <p className="text-xs leading-none text-muted-foreground">
+                          {user.email}
+                        </p>
+                      </div>
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={handleLogout} className="cursor-pointer">
+                      <LogOut className="mr-2 h-4 w-4" />
+                      <span>Log out</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <>
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="rounded-lg border-primary/50 text-primary hover:bg-primary/10"
+                  >
+                    <Link href="/signup">
+                      <User className="mr-2 h-4 w-4" />
+                      Sign Up
+                    </Link>
+                  </Button>
+                  <Button
+                    asChild
+                    variant="default"
+                    className="rounded-lg bg-primary hover:bg-primary/90"
+                  >
+                    <Link href="/login">
+                      <User className="mr-2 h-4 w-4" />
+                      Login
+                    </Link>
+                  </Button>
+                </>
+              )}
             </div>
           </>
         )}

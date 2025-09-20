@@ -37,7 +37,7 @@ export default function SignupPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
-  const { user, loading, isClient } = useAuth();
+  const { user, loading, isClient, signup } = useAuth();
   const { toast } = useToast();
 
   const {
@@ -83,26 +83,17 @@ export default function SignupPage() {
     setIsLoading(true);
     
     try {
-      const response = await fetch('/api/auth/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          password: data.password,
-        }),
-      });
-
-      const result = await response.json();
-
-      if (response.ok) {
+      const result = await signup(data.name, data.email, data.password);
+      
+      if (result.success) {
         toast({
           title: 'Account Created Successfully!',
-          description: 'Please login with your new credentials.',
+          description: 'Welcome! You are now logged in.',
         });
-        router.push('/login');
+        // Add a small delay to ensure auth state updates
+        setTimeout(() => {
+          router.push('/');
+        }, 100);
       } else {
         toast({
           title: 'Signup Failed',

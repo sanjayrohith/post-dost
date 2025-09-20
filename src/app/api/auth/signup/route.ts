@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createUser } from '@/lib/user-storage';
+import jwt from 'jsonwebtoken';
+
+const JWT_SECRET = process.env.JWT_SECRET || 'your-super-secret-jwt-key-change-in-production';
 
 const signupSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -44,10 +47,21 @@ export async function POST(request: NextRequest) {
 
     console.log('User created successfully:', result.user?.email);
 
-    // Return success response (without password)
+    // Generate JWT token for automatic login
+    const token = jwt.sign(
+      { 
+        userId: result.user!.id, 
+        email: result.user!.email 
+      },
+      JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    // Return success response with token (without password)
     return NextResponse.json({
       success: true,
       message: 'Account created successfully',
+      token,
       user: {
         id: result.user!.id,
         name: result.user!.name,

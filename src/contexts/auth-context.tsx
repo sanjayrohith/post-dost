@@ -12,6 +12,7 @@ interface User {
 interface AuthContextType {
   user: User | null;
   login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
+  signup: (name: string, email: string, password: string) => Promise<{ success: boolean; error?: string }>;
   logout: () => void;
   loading: boolean;
   isClient: boolean;
@@ -100,6 +101,38 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const signup = async (name: string, email: string, password: string) => {
+    try {
+      console.log('Attempting signup with:', { name, email, passwordLength: password.length });
+      
+      const response = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      const data = await response.json();
+      
+      console.log('Signup response:', { status: response.status, data });
+
+      if (response.ok) {
+        console.log('Setting user state and token after signup:', data.user);
+        setUser(data.user);
+        Cookies.set('auth-token', data.token, { expires: 7 }); // 7 days
+        console.log('Token stored:', data.token);
+        return { success: true };
+      } else {
+        console.error('Signup failed:', data.error);
+        return { success: false, error: data.error || 'Signup failed' };
+      }
+    } catch (error) {
+      console.error('Signup error:', error);
+      return { success: false, error: 'Network error occurred' };
+    }
+  };
+
   const logout = async () => {
     try {
       await fetch('/api/auth/logout', { method: 'POST' });
@@ -114,6 +147,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const value = {
     user,
     login,
+    signup,
     logout,
     loading,
     isClient,
