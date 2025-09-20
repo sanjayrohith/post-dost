@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "es6"],
-    "allowJs": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es2022"
+    ],
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
@@ -19,11 +22,14 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     },
-    "target": "es2017",
+    "target": "es2022",
     "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "allowJs": true
   },
   "include": [
     "next-env.d.ts",

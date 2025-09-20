@@ -52,6 +52,7 @@ export function SuggestionCards({
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {suggestions.map(suggestion => (
           <button
+            type="button"
             key={suggestion.id}
             onClick={() => handleSuggestionClick(suggestion.prompt)}
             className="relative group overflow-hidden rounded-2xl border border-white/10 aspect-[4/2.5] text-white text-center flex flex-col justify-center items-center p-4 transition-all duration-300 hover:scale-105"
