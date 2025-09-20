@@ -3,36 +3,41 @@ import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-super-secret-jwt-key-change-in-production';
 
+interface JWTPayload {
+  userId: string;
+  email: string;
+  name: string;
+}
+
 export interface AuthenticatedUser {
   userId: string;
   email: string;
   name: string;
 }
 
-export function verifyToken(request: NextRequest): AuthenticatedUser | null {
+export function verifyAuth(authHeader: string | null): AuthenticatedUser | null {
   try {
-    const authHeader = request.headers.get('authorization');
-    
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return null;
     }
 
     const token = authHeader.substring(7);
-    const decoded = jwt.verify(token, JWT_SECRET) as any;
+    const decoded = jwt.verify(token, JWT_SECRET) as JWTPayload;
     
     return {
       userId: decoded.userId,
       email: decoded.email,
       name: decoded.name
     };
-  } catch (error) {
+  } catch {
     return null;
   }
 }
 
 export function requireAuth(handler: (request: NextRequest, user: AuthenticatedUser) => Promise<Response>) {
   return async (request: NextRequest) => {
-    const user = verifyToken(request);
+    const authHeader = request.headers.get('authorization');
+    const user = verifyAuth(authHeader);
     
     if (!user) {
       return Response.json(

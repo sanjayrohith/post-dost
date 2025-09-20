@@ -3,6 +3,12 @@ import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-super-secret-jwt-key-change-in-production';
 
+interface JWTPayload {
+  userId: string;
+  email: string;
+  name: string;
+}
+
 export async function GET(request: NextRequest) {
   try {
     const authHeader = request.headers.get('authorization');
@@ -17,7 +23,7 @@ export async function GET(request: NextRequest) {
     const token = authHeader.substring(7); // Remove 'Bearer ' prefix
 
     try {
-      const decoded = jwt.verify(token, JWT_SECRET) as any;
+      const decoded = jwt.verify(token, JWT_SECRET) as JWTPayload;
       
       // Return user information
       return NextResponse.json({

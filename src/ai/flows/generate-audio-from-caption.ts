@@ -23,8 +23,9 @@ const GenerateAudioFromCaptionOutputSchema = z.object({
 export type GenerateAudioFromCaptionOutput = z.infer<typeof GenerateAudioFromCaptionOutputSchema>;
 
 export async function generateAudioFromCaption(
-  _input: GenerateAudioFromCaptionInput
+  input: GenerateAudioFromCaptionInput
 ): Promise<GenerateAudioFromCaptionOutput> {
   // Placeholder: feature removed
+  console.log('Caption:', input.caption);
   return { audioUrl: '' };
 }

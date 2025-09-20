@@ -11,19 +11,14 @@
 
 // Placeholder date-aware suggestion (AI removed)
 'use server';
-import { z } from 'zod';
 
-const DateAwarePostSuggestionInputSchema = z.object({
-  language: z.enum(['English', 'Tamil', 'Hindi']).describe('The language for the post suggestion.'),
-});
+export type DateAwarePostSuggestionInput = {
+  language: 'English' | 'Tamil' | 'Hindi';
+};
 
-export type DateAwarePostSuggestionInput = z.infer<typeof DateAwarePostSuggestionInputSchema>;
-
-const DateAwarePostSuggestionOutputSchema = z.object({
-  suggestion: z.string().describe('The suggested post prompt based on the current date and language.'),
-});
-
-export type DateAwarePostSuggestionOutput = z.infer<typeof DateAwarePostSuggestionOutputSchema>;
+export type DateAwarePostSuggestionOutput = {
+  suggestion: string;
+};
 
 export async function getDateAwarePostSuggestion(input: DateAwarePostSuggestionInput): Promise<DateAwarePostSuggestionOutput> {
   const currentDate = new Date().toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' });

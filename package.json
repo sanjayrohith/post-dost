@@ -8,7 +8,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "setup": "npm install --legacy-peer-deps && npm run type-check",
+    "diagnose": "node diagnostic.js",
+    "clean": "rm -rf node_modules package-lock.json .next && npm install --legacy-peer-deps"
   },
   "dependencies": {
     "@genkit-ai/googleai": "^1.19.3",

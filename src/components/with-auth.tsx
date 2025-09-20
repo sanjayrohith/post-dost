@@ -4,7 +4,7 @@ import { useAuth } from '@/contexts/auth-context';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-export function withAuth<P extends {}>(WrappedComponent: React.ComponentType<P>) {
+export function withAuth<P extends Record<string, unknown>>(WrappedComponent: React.ComponentType<P>) {
   const AuthenticatedComponent = (props: P) => {
     const { user, loading, isClient } = useAuth();
     const router = useRouter();

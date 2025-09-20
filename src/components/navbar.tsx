@@ -58,6 +58,13 @@ export function Navbar() {
               >
                 <Link href="/explore">Explore</Link>
               </Button>
+              <Button
+                asChild
+                variant="outline"
+                className="rounded-lg border-primary/50 text-primary hover:bg-primary/10"
+              >
+                <Link href="/maps">Maps</Link>
+              </Button>
             </div>
 
             {/* auth actions on the right */}
