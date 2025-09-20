@@ -15,6 +15,11 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: 'PostDost AI',
   description: 'AI-Powered Social Media Posts for Local Indian Businesses',
+  icons: {
+    icon: 'https://www.shutterstock.com/image-vector/o-initial-logo-sign-icon-600nw-2173663361.jpg',
+    shortcut: 'https://www.shutterstock.com/image-vector/o-initial-logo-sign-icon-600nw-2173663361.jpg',
+    apple: 'https://www.shutterstock.com/image-vector/o-initial-logo-sign-icon-600nw-2173663361.jpg',
+  },
 };
 
 export default function RootLayout({
