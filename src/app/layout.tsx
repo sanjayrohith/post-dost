@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { AuthProvider } from '@/contexts/auth-context';
+import { Navbar } from '@/components/navbar';
 
 export const metadata: Metadata = {
   title: 'PostDost AI',
@@ -30,6 +31,7 @@ export default function RootLayout({
       <body className="font-body antialiased">
         <AuthProvider>
           <div className="relative min-h-screen w-full" suppressHydrationWarning>
+            <Navbar />
             {children}
           </div>
           <Toaster />

@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Navbar } from '@/components/navbar';
 import {
   Card,
   CardContent,
@@ -100,7 +99,6 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <Navbar />
       <main className="flex-1 container mx-auto px-4 py-8 flex flex-col items-center justify-center text-center">
         <div className="w-full max-w-md">
           <Button asChild variant="outline" className="mb-8 rounded-lg">

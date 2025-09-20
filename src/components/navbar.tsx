@@ -22,7 +22,7 @@ export function Navbar() {
 
   return (
     <header className="py-4 px-4 sm:px-6 lg:px-8 bg-transparent sticky top-0 z-50">
-      <nav className="flex items-center justify-between container mx-auto">
+      <nav className="relative flex items-center justify-between container mx-auto">
         <Link
           href="/"
           className="flex items-center gap-2 text-2xl font-bold font-headline text-primary"
@@ -63,28 +63,56 @@ export function Navbar() {
             </DropdownMenuContent>
           </DropdownMenu>
         ) : (
-          <div className="flex gap-2">
-            <Button
-              asChild
-              variant="outline"
-              className="rounded-lg border-primary/50 text-primary hover:bg-primary/10"
-            >
-              <Link href="/signup">
-                <User className="mr-2 h-4 w-4" />
-                Sign Up
-              </Link>
-            </Button>
-            <Button
-              asChild
-              variant="default"
-              className="rounded-lg bg-primary hover:bg-primary/90"
-            >
-              <Link href="/login">
-                <User className="mr-2 h-4 w-4" />
-                Login
-              </Link>
-            </Button>
-          </div>
+          <>
+            {/* absolutely centered Home/Post (separate from left brand and right auth) */}
+            <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center gap-3">
+              <Button
+                asChild
+                variant="outline"
+                className="rounded-lg border-primary/50 text-primary hover:bg-primary/10"
+              >
+                <Link href="/">Home</Link>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                className="rounded-lg border-primary/50 text-primary hover:bg-primary/10"
+              >
+                <Link href="/explore">Explore</Link>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                className="rounded-lg border-primary/50 text-primary hover:bg-primary/10"
+              >
+                <Link href="/maps">Maps</Link>
+              </Button>
+            </div>
+
+            {/* auth actions on the right */}
+            <div className="ml-auto flex gap-2">
+              <Button
+                asChild
+                variant="outline"
+                className="rounded-lg border-primary/50 text-primary hover:bg-primary/10"
+              >
+                <Link href="/signup">
+                  <User className="mr-2 h-4 w-4" />
+                  Sign Up
+                </Link>
+              </Button>
+              <Button
+                asChild
+                variant="default"
+                className="rounded-lg bg-primary hover:bg-primary/90"
+              >
+                <Link href="/login">
+                  <User className="mr-2 h-4 w-4" />
+                  Login
+                </Link>
+              </Button>
+            </div>
+          </>
         )}
       </nav>
     </header>

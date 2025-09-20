@@ -1,4 +1,3 @@
-import { Navbar } from '@/components/navbar';
 import { GeneratorForm } from '@/app/generator-form';
 import { Badge } from '@/components/ui/badge';
 import { Sparkles } from 'lucide-react';
@@ -6,7 +5,6 @@ import { Sparkles } from 'lucide-react';
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col">
-      <Navbar />
       <main className="flex-1 container mx-auto px-4 py-8 md:py-16 flex flex-col items-center text-center">
         <h1 className="text-4xl md:text-6xl font-bold font-headline tracking-tight text-primary animate-text-glow">
           AI-Powered Social Media Posts in Seconds

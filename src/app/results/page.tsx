@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { z } from 'zod';
 import { AlertTriangle } from 'lucide-react';
 
-import { Navbar } from '@/components/navbar';
 import {
   generateSocialMediaPost,
   GenerateSocialMediaPostInput,
@@ -75,7 +74,6 @@ export default function ResultsPage({
   ) {
     return (
       <div className="flex min-h-screen flex-col">
-        <Navbar />
         <main className="flex-1 container mx-auto px-4 py-8 flex flex-col items-center justify-center">
           <Card className="w-full max-w-md text-center bg-card/50 backdrop-blur-lg border border-white/10">
             <CardHeader>
@@ -107,7 +105,6 @@ export default function ResultsPage({
 
   return (
     <div className="flex min-h-screen flex-col">
-      <Navbar />
       <main className="flex-1 container mx-auto px-4 py-8 flex flex-col items-center">
         <div className="bg-black/20 backdrop-blur-sm p-6 rounded-lg">
             <h1 className="text-3xl md:text-5xl font-bold font-headline tracking-tight text-center">
