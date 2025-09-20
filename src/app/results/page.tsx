@@ -24,6 +24,7 @@ const searchParamsSchema = z.object({
   productDescription: z.string().optional(),
   language: z.enum(languages).optional(),
   tone: z.enum(tones).optional(),
+  rerun: z.string().optional(),
 });
 
 type PostGeneratorProps = {

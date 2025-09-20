@@ -16,8 +16,10 @@ import {
 export function Navbar() {
   const { user, logout, loading, isClient } = useAuth();
 
-  // Debug logging
-  console.log('Navbar render:', { user: user ? { id: user.id, name: user.name, email: user.email } : null, loading, isClient });
+  // Debug logging (dev only)
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('Navbar render:', { user: user ? { id: user.id, name: user.name, email: user.email } : null, loading, isClient });
+  }
 
   const handleLogout = () => {
     logout();
@@ -55,13 +57,6 @@ export function Navbar() {
                 className="rounded-lg border-primary/50 text-primary hover:bg-primary/10"
               >
                 <Link href="/explore">Explore</Link>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                className="rounded-lg border-primary/50 text-primary hover:bg-primary/10"
-              >
-                <Link href="/maps">Maps</Link>
               </Button>
             </div>
 

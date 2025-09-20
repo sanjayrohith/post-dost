@@ -18,7 +18,6 @@ import type {
   GenerateSocialMediaPostOutput,
   GenerateSocialMediaPostInput,
 } from '@/ai/flows/generate-social-media-post';
-import { generateAudioFromCaption } from '@/ai/flows/generate-audio-from-caption';
 import { Card, CardContent } from '@/components/ui/card';
 
 type ResultsDisplayProps = {
@@ -53,18 +52,11 @@ export default function ResultsDisplay({ post, formParams }: ResultsDisplayProps
     setIsGeneratingAudio(true);
     setAudioUrl(null);
     setAudioError(null);
-    try {
-      const result = await generateAudioFromCaption({
-        caption: post.caption,
-        language: formParams.language,
-      });
-      setAudioUrl(result.audioUrl);
-    } catch (error) {
-      console.error('Audio generation failed:', error);
-      setAudioError('Failed to generate audio. Please try again.');
-    } finally {
+    // Placeholder: feature removed
+    setTimeout(() => {
       setIsGeneratingAudio(false);
-    }
+      setAudioError('Audio generation feature no longer available.');
+    }, 600);
   };
 
   return (
@@ -111,7 +103,7 @@ export default function ResultsDisplay({ post, formParams }: ResultsDisplayProps
       
       <Card className="bg-card/50 backdrop-blur-lg border border-white/10">
         <CardContent className="p-4 md:p-6 text-center">
-          <h3 className="text-lg font-semibold text-primary mb-4">Make it Audio!</h3>
+          <h3 className="text-lg font-semibold text-primary mb-4">Audio (Removed)</h3>
           {!audioUrl && !isGeneratingAudio && (
             <Button onClick={handleGenerateAudio} size="lg" className="rounded-lg">
               <Music4 className="mr-2" />
