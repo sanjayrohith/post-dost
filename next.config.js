@@ -14,6 +14,12 @@ const nextConfig = {
   env: {
     CUSTOM_KEY: process.env.CUSTOM_KEY,
   },
+  images: {
+  domains: ['images.unsplash.com', 'via.placeholder.com', 'picsum.photos', 'example.com'], // added
+  dangerouslyAllowSVG: true,
+  contentDispositionType: 'attachment',
+  contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+},
 }
 
 module.exports = nextConfig

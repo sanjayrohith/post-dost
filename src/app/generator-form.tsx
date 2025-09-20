@@ -158,7 +158,7 @@ export function GeneratorForm() {
           </form>
         </Form>
       </div>
-      <SuggestionCards onSuggestionClick={handleSuggestionClick} />
+  <SuggestionCards onSuggestionClickAction={handleSuggestionClick} />
     </>
   );
 }
