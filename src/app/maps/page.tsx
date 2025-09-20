@@ -1,5 +1,8 @@
 'use client';
 
+// Leaflet styles loaded only on maps page to avoid global dependency during initial app load
+import 'leaflet/dist/leaflet.css';
+
 import { useState, useCallback, useRef, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { Search, MapPin, Navigation, Loader2, Users } from 'lucide-react';
