@@ -2,7 +2,7 @@
    <img src="./image.jpeg" alt="PostDost Hero" width="820" />
    <img src="./explore.png" alt="PostDost Hero" width="820" />
    <img src="./homepage.png" alt="PostDost Hero" width="820" />
-   <img src="./map.png" alt="PostDost Hero" width="820" />
+   <img src="./maps.png" alt="PostDost Hero" width="820" />
    <h1>PostDost AI</h1>
    <p><em>🚀 Culturally-aware social media content generator for local Indian businesses</em></p>
 
