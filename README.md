@@ -1,33 +1,85 @@
-# PostDost AI
+<div align="center">
+   <img src="./image.jpeg" alt="PostDost Hero" width="820" />
+   <h1>PostDost AI</h1>
+   <p><em>🚀 Culturally-aware social media content generator for local Indian businesses</em></p>
 
-🚀 AI-Powered Social Media Posts for Local Indian Businesses
+   <!-- Badges -->
+   <p>
+      <a href="https://nextjs.org"><img src="https://img.shields.io/badge/Next.js-15-black?style=flat&logo=next.js" alt="Next.js" /></a>
+      <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-5-blue?style=flat&logo=typescript" alt="TypeScript" /></a>
+      <a href="https://tailwindcss.com"><img src="https://img.shields.io/badge/TailwindCSS-3-38BDF8?style=flat&logo=tailwindcss" alt="Tailwind" /></a>
+      <a href="https://ui.shadcn.com"><img src="https://img.shields.io/badge/shadcn/ui-Radix%20Powered-111?style=flat" alt="shadcn/ui" /></a>
+      <a href="LICENSE"><img src="https://img.shields.io/badge/License-ISC-green?style=flat" alt="License" /></a>
+   </p>
+</div>
 
-## Description
+---
 
-PostDost AI is a Next.js application that leverages Google's Genkit AI framework to generate culturally-aware social media posts with images specifically tailored for local Indian businesses. The application provides an intuitive interface for businesses to create engaging content that resonates with their local audience.
+## 📌 Overview
 
-## Features
+PostDost AI helps small & local Indian businesses quickly spin up engaging, culturally-relevant social media post ideas (captions + placeholder images). The current version ships with deterministic placeholder generation (no external AI calls) to keep the project light, demo-friendly, and privacy-safe. You can later plug in any AI provider (OpenAI, Gemini, Claude, etc.).
 
-- ✨ **AI-Powered Content Generation**: Uses Google Gemini AI to create culturally relevant posts
-- 🗺️ **Interactive Maps**: Leaflet-based maps with location search and user positioning
-- 🎨 **Modern UI**: Built with shadcn/ui components and Tailwind CSS
-- 📱 **Responsive Design**: Works seamlessly across desktop and mobile devices
-- 🔄 **Real-time Generation**: Fast content creation with instant previews
-- 🎯 **Local Business Focus**: Tailored for Indian market and cultural context
-- 🔐 **Authentication**: Secure user authentication system
+> NOTE: All former Genkit / Gemini integrations were intentionally removed and replaced with pure TypeScript placeholder flows. Feel free to fork and reintroduce a model layer.
 
-## Tech Stack
+## 🧭 Table of Contents
+1. Features
+2. Tech Stack
+3. Architecture Snapshot
+4. Screenshots
+5. Quick Start
+6. Configuration
+7. Project Structure
+8. Scripts
+9. Development Notes
+10. Roadmap
+11. Contributing
+12. License
+13. Support
 
-- **Framework**: Next.js 15 with App Router
-- **AI**: Google Genkit with Gemini AI
-- **Maps**: Leaflet + React-Leaflet
-- **Styling**: Tailwind CSS + shadcn/ui
-- **Form Management**: React Hook Form + Zod validation
-- **Icons**: Lucide React
-- **TypeScript**: Full type safety
-- **Authentication**: JWT-based auth system
+## ✨ Features
 
-## 🚀 Quick Start for Contributors
+| Category | Highlights |
+|----------|------------|
+| Post Ideas | Multi-caption generation with localized hashtag patterns |
+| Image Placeholder | Deterministic pseudo-random selection from curated sources (no API keys) |
+| Maps (Optional) | Leaflet + OpenStreetMap exploration with geolocation & mock POIs |
+| UI/UX | Dark theme, accessible components (shadcn/ui + Radix primitives) |
+| Forms | React Hook Form + Zod validation with strong typing |
+| Auth | Basic JWT-based auth endpoints (can be hardened further) |
+| Extensibility | Simple flow functions you can swap for real AI providers |
+| Tooling | Type-safe, lintable, modular setup |
+
+## 🛠 Tech Stack
+
+| Layer | Tools |
+|-------|-------|
+| Framework | Next.js 15 (App Router) |
+| Language | TypeScript (strict) |
+| Styling | Tailwind CSS + shadcn/ui + CSS Modules (globals) |
+| Forms & Validation | React Hook Form + Zod |
+| Icons | Lucide React |
+| Maps | Leaflet + React-Leaflet (scoped import) |
+| Auth | Custom JWT (stateless) |
+| Utilities | Lightweight placeholder generation utilities |
+
+## 🧱 Architecture Snapshot
+
+Core concept: "Flows" generate post data (captions + image reference). UI consumes them via server components + client hydration. Auth is minimal (can be swapped for NextAuth or Clerk). Maps are lazy-loaded to avoid SSR pitfalls.
+
+High-level flow:
+```
+User Input -> Zod Validation -> Placeholder Flow -> Result Page Renderer -> Copy / Download Actions
+```
+
+## � Screenshots
+
+| Generated Posts Page |
+|----------------------|
+| <img src="./image.jpeg" alt="Generated Post Example" width="600" /> |
+
+> Add more screenshots in a `screenshots/` folder if desired (e.g., login, maps, explore pages).
+
+## 🚀 Quick Start
 
 ### Automated Setup (Recommended)
 
@@ -76,6 +128,21 @@ npm run dev
    - Navigate to `http://localhost:3000`
    - You should see the app with Home | Explore | Maps navigation
 
+## ⚙️ Configuration
+
+Create `.env.local` (copy from `.env.example`):
+```ini
+JWT_SECRET=change-me-in-production
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+NODE_ENV=development
+```
+
+Optional (if you reintroduce AI later):
+```ini
+OPENAI_API_KEY=...
+GEMINI_API_KEY=...
+```
+
 ## 🔧 Troubleshooting
 
 ### "Nothing shows up" / Blank page
@@ -96,37 +163,24 @@ npm run dev
 npm install --legacy-peer-deps
 ```
 
-## 📱 Application Features
+## 📱 Feature Detail
 
-### Home Page
-- AI-powered social media post generation
-- Cultural context for Indian businesses
-- Form-based content creation
+### Post Generator
+Deterministic caption + image selection (no rate limits). Replace the flow in `src/ai/flows/generate-social-media-post.ts` to integrate a real model.
 
-### Explore Page
-- Business directory
-- Local business discovery
-- Search and filter functionality
+### Maps Module (Optional)
+If you don't need maps, delete `src/app/maps` + related deps (`leaflet`, `react-leaflet`, `@types/leaflet`). CSS is locally imported in the page to reduce global weight.
 
-### Maps Page
-- Interactive Leaflet maps
-- Location-based search
-- "My Location" with user positioning
-- Distance calculation and nearby places
-- No API keys required (uses OpenStreetMap)
-Add your Google AI API key to `.env.local`:
-```
-GOOGLE_AI_API_KEY=your_api_key_here
-```
+### Auth
+Simple JWT issuance via API routes. Improve by:
+- Rotating secrets
+- Using HttpOnly secure cookies
+- Adding route middleware for protected pages
 
-4. Run the development server:
-```bash
-npm run dev
-```
+### Placeholder Images
+Currently uses whitelisted remote sources from Next config. Swap with an internal CDN or AI image generator later.
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser
-
-## Project Structure
+## 🗂 Project Structure
 
 ```
 src/
@@ -140,7 +194,7 @@ src/
 └── lib/              # Utility functions
 ```
 
-## Scripts
+## 📜 Scripts
 
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
@@ -148,7 +202,7 @@ src/
 - `npm run lint` - Run ESLint
 - `npm run type-check` - Run TypeScript compiler
 
-## Contributing
+## 🤝 Contributing
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
@@ -156,10 +210,36 @@ src/
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## License
+## 📄 License
 
 This project is licensed under the ISC License.
 
-## Support
+## 💬 Support
+
+Have a question or idea? Open an issue or start a discussion.
+
+---
+
+## 🛣 Roadmap (Planned / Ideas)
+
+- [ ] Secure HttpOnly cookie-based auth session
+- [ ] Real AI provider integration behind feature flag
+- [ ] Image generation microservice
+- [ ] i18n (multi-language captions)
+- [ ] Map POI real data via external API
+- [ ] Accessibility audit pass (axe score)
+- [ ] Automated e2e tests (Playwright)
+
+---
+
+## 🧪 Development Notes
+
+- Leaflet CSS is intentionally NOT globally imported—only in the maps page.
+- All AI code is stubbed; swapping providers should only require updating flow functions.
+- Prefer adding new flows under `src/ai/flows/` with a consistent return shape.
+
+---
+
+Made with ❤️ for local Indian entrepreneurs.
 
 For support, please open an issue in the [GitHub repository](https://github.com/sanjayrohith/post-dost/issues).
