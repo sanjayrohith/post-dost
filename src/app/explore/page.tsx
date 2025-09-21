@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import BusinessDetailsModal from '@/components/business-details-modal';
 
 interface Business {
   id: string;
@@ -26,6 +27,8 @@ export default function ExplorePage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [businesses, setBusinesses] = useState<Business[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedBusiness, setSelectedBusiness] = useState<Business | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Mock business data for demonstration - Chennai businesses
   const mockBusinesses: Business[] = [
@@ -157,6 +160,16 @@ export default function ExplorePage() {
   const handleExploreAll = () => {
     setSearchQuery('');
     setBusinesses(mockBusinesses);
+  };
+
+  const handleViewDetails = (business: Business) => {
+    setSelectedBusiness(business);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedBusiness(null);
   };
 
   return (
@@ -291,7 +304,7 @@ export default function ExplorePage() {
                 </div>
 
                 <div className="mt-4 flex gap-2">
-                  <Button size="sm" className="flex-1">
+                  <Button size="sm" className="flex-1" onClick={() => handleViewDetails(business)}>
                     View Details
                   </Button>
                   <Button size="sm" variant="outline">
@@ -303,6 +316,13 @@ export default function ExplorePage() {
           ))}
         </div>
       </div>
+
+      {/* Business Details Modal */}
+      <BusinessDetailsModal
+        business={selectedBusiness}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </div>
   );
 }

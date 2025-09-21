@@ -1,7 +1,28 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['images.unsplash.com', 'via.placeholder.com', 'picsum.photos'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'via.placeholder.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'picsum.photos',
+        port: '',
+        pathname: '/**',
+      },
+    ],
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'attachment',
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   // Enable support for the src directory
@@ -11,12 +32,6 @@ const nextConfig = {
   env: {
     CUSTOM_KEY: process.env.CUSTOM_KEY,
   },
-  images: {
-  domains: ['images.unsplash.com', 'via.placeholder.com', 'picsum.photos', 'example.com'], // added
-  dangerouslyAllowSVG: true,
-  contentDispositionType: 'attachment',
-  contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-},
 }
 
 module.exports = nextConfig
