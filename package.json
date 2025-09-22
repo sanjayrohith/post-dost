@@ -57,6 +57,7 @@
     "react-leaflet": "^5.0.0",
     "react-map-gl": "^8.0.4",
     "recharts": "^2.12.7",
+    "stability-ai": "^0.7.0",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"

@@ -158,7 +158,8 @@ export function GeneratorForm() {
           </form>
         </Form>
       </div>
-  <SuggestionCards onSuggestionClickAction={handleSuggestionClick} />
+      {/* THIS IS THE ONLY LINE THAT NEEDED CHANGING */}
+      <SuggestionCards onSuggestionClickAction={handleSuggestionClick} />
     </>
   );
 }
